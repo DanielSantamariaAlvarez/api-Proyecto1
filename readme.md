@@ -9,5 +9,6 @@ Abrir la carpeta del proyecto en la terminal e ingresar el comando 'uvicorn main
 
 ## Endpoints 
 
-1. El primer endpoint es http://127.0.0.1:8000/predict
-2. El segundo endpoint es http://127.0.0.1:8000/predict-r2
+1. El primer endpoint es http://127.0.0.1:8000/rl
+2. El segundo endpoint es http://127.0.0.1:8000/knn
+2. El tercero endpoint es http://127.0.0.1:8000/nb
