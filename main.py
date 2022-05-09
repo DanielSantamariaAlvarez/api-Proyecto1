@@ -33,7 +33,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 # Arreglo de las urls que pueden acceder al backend
-origins = ["http://localhost:8000", "https://proyecto1-etapa2-bi-front.herokuapp.com"]
+origins = ["http://localhost:8000", "https://api-proyecyo1.herokuapp.com/"]
 
 # Manejo de las cors para habilitar los endpoints
 app.add_middleware(
