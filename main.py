@@ -24,12 +24,26 @@ import inflect
 from nltk import word_tokenize, sent_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import LancasterStemmer, WordNetLemmatizer
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
 #######
 
 app = FastAPI()
+
+# Arreglo de las urls que pueden acceder al backend
+origins = ["http://localhost:8000", "https://api-proyecyo1.herokuapp.com/"]
+
+# Manejo de las cors para habilitar los endpoints
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 def stemw(palabras):
     stemmer = LancasterStemmer()
@@ -106,6 +120,7 @@ def preprocessing(words):
     words = removestopwords(words)
     return words
 
+
 @app.get("/")
 def read_root():
     return{
@@ -145,9 +160,9 @@ def postNB(data: DListar):
 def postRL(data: DListar):
     dict = jsonable_encoder(data)
     df = json_normalize(dict['texto']) 
-    df_cleaned = limpiar(df)
-    model = load("./pipelines/pipelineKNNs.joblib")
-    result = model.predict(df)
+    df_clean = limpiar(df)
+    model = load("./pipelines/pipelineNBs.joblib")
+    result = model.predict(df_clean)
     lists = result.tolist()
     json_predict = json.dumps(lists)
     return {"Predict": json_predict, "Cleaned": df}
